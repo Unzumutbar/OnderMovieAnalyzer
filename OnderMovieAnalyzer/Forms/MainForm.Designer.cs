@@ -45,9 +45,9 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 10F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 10F));
-            this.tableLayoutPanel1.Controls.Add(this.buttonViewDatabase, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.buttonGetDuplicates, 1, 5);
-            this.tableLayoutPanel1.Controls.Add(this.buttonSearchDirectory, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.buttonViewDatabase, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.buttonSearchDirectory, 1, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -68,7 +68,7 @@
             this.buttonViewDatabase.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonViewDatabase.ImageIndex = 1;
             this.buttonViewDatabase.ImageList = this.imageList;
-            this.buttonViewDatabase.Location = new System.Drawing.Point(13, 13);
+            this.buttonViewDatabase.Location = new System.Drawing.Point(13, 78);
             this.buttonViewDatabase.Name = "buttonViewDatabase";
             this.buttonViewDatabase.Size = new System.Drawing.Size(182, 54);
             this.buttonViewDatabase.TabIndex = 3;
@@ -104,7 +104,7 @@
             this.buttonSearchDirectory.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonSearchDirectory.ImageIndex = 2;
             this.buttonSearchDirectory.ImageList = this.imageList;
-            this.buttonSearchDirectory.Location = new System.Drawing.Point(13, 78);
+            this.buttonSearchDirectory.Location = new System.Drawing.Point(13, 13);
             this.buttonSearchDirectory.Name = "buttonSearchDirectory";
             this.buttonSearchDirectory.Size = new System.Drawing.Size(182, 54);
             this.buttonSearchDirectory.TabIndex = 4;

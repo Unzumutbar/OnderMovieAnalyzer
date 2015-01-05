@@ -26,7 +26,7 @@ namespace OnderMovieAnalyzer.Objects
 
         public string FullPath
         {
-            get { return string.Format("{0}\\{1}", Location, Path); }
+            get { return string.Format(@"{0}\\{1}", Location, Path); }
         }
     }
 }

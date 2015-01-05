@@ -34,7 +34,6 @@
             this.buttonSearch = new System.Windows.Forms.Button();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.movieBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.languageOriginalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.languageDubDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -44,6 +43,8 @@
             this.sizeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lastModifiedDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fullPathDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.movieBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.buttonDeleteDatabase = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.movieBindingSource)).BeginInit();
@@ -51,13 +52,15 @@
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 4;
+            this.tableLayoutPanel1.ColumnCount = 5;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 10F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 10F));
             this.tableLayoutPanel1.Controls.Add(this.buttonSearch, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.dataGridView1, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.buttonDeleteDatabase, 3, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -88,6 +91,7 @@
             this.imageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList.ImageStream")));
             this.imageList.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList.Images.SetKeyName(0, "arrow-return-right.png");
+            this.imageList.Images.SetKeyName(1, "trash-a.png");
             // 
             // dataGridView1
             // 
@@ -107,6 +111,7 @@
             this.sizeDataGridViewTextBoxColumn,
             this.lastModifiedDataGridViewTextBoxColumn,
             this.fullPathDataGridViewTextBoxColumn});
+            this.tableLayoutPanel1.SetColumnSpan(this.dataGridView1, 3);
             this.dataGridView1.DataSource = this.movieBindingSource;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.GridColor = System.Drawing.SystemColors.Window;
@@ -114,12 +119,8 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.Size = new System.Drawing.Size(737, 450);
+            this.dataGridView1.Size = new System.Drawing.Size(736, 450);
             this.dataGridView1.TabIndex = 11;
-            // 
-            // movieBindingSource
-            // 
-            this.movieBindingSource.DataSource = typeof(OnderMovieAnalyzer.Objects.Movie);
             // 
             // nameDataGridViewTextBoxColumn
             // 
@@ -201,6 +202,24 @@
             this.fullPathDataGridViewTextBoxColumn.Name = "fullPathDataGridViewTextBoxColumn";
             this.fullPathDataGridViewTextBoxColumn.ReadOnly = true;
             // 
+            // movieBindingSource
+            // 
+            this.movieBindingSource.DataSource = typeof(OnderMovieAnalyzer.Objects.Movie);
+            // 
+            // buttonDeleteDatabase
+            // 
+            this.buttonDeleteDatabase.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonDeleteDatabase.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonDeleteDatabase.ImageIndex = 1;
+            this.buttonDeleteDatabase.ImageList = this.imageList;
+            this.buttonDeleteDatabase.Location = new System.Drawing.Point(607, 13);
+            this.buttonDeleteDatabase.Name = "buttonDeleteDatabase";
+            this.buttonDeleteDatabase.Size = new System.Drawing.Size(142, 23);
+            this.buttonDeleteDatabase.TabIndex = 12;
+            this.buttonDeleteDatabase.Text = "Delete Database";
+            this.buttonDeleteDatabase.UseVisualStyleBackColor = true;
+            this.buttonDeleteDatabase.Click += new System.EventHandler(this.buttonDeleteDatabase_Click);
+            // 
             // ViewDatabaseForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -236,5 +255,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn lastModifiedDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn fullPathDataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource movieBindingSource;
+        private System.Windows.Forms.Button buttonDeleteDatabase;
     }
 }

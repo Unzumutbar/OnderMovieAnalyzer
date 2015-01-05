@@ -18,7 +18,7 @@ namespace OnderMovieAnalyzer.Forms
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
-            RefreshDuplicateList();
+            RefreshList();
         }
 
         private void itemDelete_Click(object sender, EventArgs e)
@@ -52,10 +52,10 @@ namespace OnderMovieAnalyzer.Forms
                     couldNotDelete += string.Format("{0}{1}", Environment.NewLine, movie.FullPath);
             }
             MessageBox.Show(string.Format("Deletion completed{0}", couldNotDelete), "Deletion Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            RefreshDuplicateList();
+            RefreshList();
         }
 
-        private void RefreshDuplicateList()
+        public void RefreshList()
         {
             var duplicateList = new List<Movie>();
             var movieList = Program.Movies.GetMovieList();

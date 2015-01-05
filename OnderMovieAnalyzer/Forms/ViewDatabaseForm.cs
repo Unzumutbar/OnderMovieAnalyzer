@@ -24,12 +24,25 @@ namespace OnderMovieAnalyzer.Forms
             RefreshList();
         }
 
-        private void RefreshList()
+        public void RefreshList()
         {
             var movieList = Program.Movies.GetMovieList();
             var MovieBindingList = new SortableBindingList<Movie>(movieList);
             var source = new BindingSource(MovieBindingList, null);
             dataGridView1.DataSource = source;
+        }
+
+        private void buttonDeleteDatabase_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Are you sure you want to delete the database?", "Confimr Database deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+
+            if (result == DialogResult.No)
+                return;
+
+            FileHelper.DeleteFile(Program.DatabaseXmlFile);
+            XmlHelper.WriteEmptyDatabase();
+            Program.Movies = new MovieList();
+            RefreshList();
         }
     }
 }
