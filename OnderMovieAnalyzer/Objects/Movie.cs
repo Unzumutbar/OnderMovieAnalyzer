@@ -7,6 +7,9 @@ namespace OnderMovieAnalyzer.Objects
         public string Guid { get; set; }
 
         public string Name { get; set; }
+        public string Part { get; set; }
+        public string Series { get; set; }
+        public string Episode { get; set; }
         public string LanguageOriginal { get; set; }
         public string LanguageDub { get; set; }
         public string Quality { get; set; }
@@ -21,7 +24,13 @@ namespace OnderMovieAnalyzer.Objects
 
         public string FullSource
         {
-            get { return string.Format("{0} | {1}", Source, TvStation); }
+            get
+            {
+                if (string.IsNullOrWhiteSpace(Source) && string.IsNullOrWhiteSpace(TvStation))
+                    return string.Empty;
+
+                return string.Format("{0} | {1}", Source, TvStation);
+            }
         }
 
         public string FullPath

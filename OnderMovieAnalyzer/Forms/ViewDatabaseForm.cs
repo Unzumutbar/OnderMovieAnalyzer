@@ -34,7 +34,7 @@ namespace OnderMovieAnalyzer.Forms
 
         private void buttonDeleteDatabase_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("Are you sure you want to delete the database?", "Confimr Database deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+            DialogResult result = MessageBox.Show("Are you sure you want to delete the database?", "Confirm Database deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
 
             if (result == DialogResult.No)
                 return;
@@ -43,6 +43,21 @@ namespace OnderMovieAnalyzer.Forms
             XmlHelper.WriteEmptyDatabase();
             Program.Movies = new MovieList();
             RefreshList();
+        }
+
+        private void buttonAddMoviesFromTxt_Click(object sender, EventArgs e)
+        {
+            int newMoviesCount = Program.Movies.GetMovieList().Count;
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                var newMovies = FileHelper.GetMovieListFromTexts(openFileDialog.FileNames);
+                foreach (var newMovie in newMovies)
+                    Program.Movies.AddMovieToList(newMovie);
+
+                newMoviesCount = Program.Movies.GetMovieList().Count - newMoviesCount;
+                MessageBox.Show(string.Format("{0} new Movies have been added to the Database", newMoviesCount), "Analysis Complete!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                RefreshList();
+            }
         }
     }
 }

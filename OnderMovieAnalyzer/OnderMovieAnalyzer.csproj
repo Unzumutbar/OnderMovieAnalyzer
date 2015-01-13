@@ -44,7 +44,6 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
@@ -71,6 +70,7 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Helper\DamerauLevenshtein.cs" />
+    <Compile Include="Helper\EncodingDetector.cs" />
     <Compile Include="Helper\FileHelper.cs" />
     <Compile Include="Helper\PropertyComparer.cs" />
     <Compile Include="Helper\SortableBindingList.cs" />
@@ -118,6 +118,7 @@
   <ItemGroup>
     <Content Include="farmer.ico" />
     <Content Include="FodyWeavers.xml" />
+    <None Include="Icons\close-circled.png" />
     <Content Include="Icons\flask.png" />
     <Content Include="Icons\ios7-trash.png" />
     <Content Include="Icons\search.png" />

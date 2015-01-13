@@ -69,6 +69,12 @@ namespace OnderMovieAnalyzer.Forms
                     if (this.radioButtonName.Checked)
                         foundDuplicates = foundDuplicates.Where(m => m.Name == movie.Name && m.Guid != movie.Guid);
 
+                    if (this.radioButtonName.Checked && checkBoxPart.Checked)
+                        foundDuplicates = foundDuplicates.Where(m => m.Name == movie.Name && m.Guid != movie.Guid && movie.Part == m.Part);
+
+                    if (this.radioButtonName.Checked && checkBoxEpisode.Checked)
+                        foundDuplicates = foundDuplicates.Where(m => m.Name == movie.Name && m.Guid != movie.Guid && movie.Episode == m.Episode);
+
                     if (this.checkBoxLanguage.Checked)
                         foundDuplicates = foundDuplicates.Where(m => m.LanguageDub == movie.LanguageDub && m.Guid != movie.Guid);
 
@@ -109,6 +115,37 @@ namespace OnderMovieAnalyzer.Forms
             dataGridDuplicates.DataSource = source;
             if (Duplicates.Any())
                 this.buttonSave.Enabled = true;
+        }
+
+        private void radioButtonName_CheckedChanged(object sender, EventArgs e)
+        {
+            checkBoxEpisode.Enabled = radioButtonName.Checked;
+            checkBoxPart.Enabled = radioButtonName.Checked;
+        }
+
+        private void itemRemoveFromList_Click(object sender, EventArgs e)
+        {
+            var selectedMovies = new List<Movie>();
+            var selectRowsCount = dataGridDuplicates.SelectedRows.Count;
+            for (int i = 0; i < selectRowsCount; i++)
+            {
+                var obj = dataGridDuplicates.SelectedRows[i].DataBoundItem as Movie;
+                if (obj != null)
+                    selectedMovies.Add(obj);
+            }
+            if (!selectedMovies.Any())
+                return;
+
+            foreach (var movie in selectedMovies)
+                Duplicates.Remove(movie);
+        }
+
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                FileHelper.SaveDuplicatesToFile(Duplicates.ToList(), saveFileDialog.FileName);
+            }
         }
     }
 }

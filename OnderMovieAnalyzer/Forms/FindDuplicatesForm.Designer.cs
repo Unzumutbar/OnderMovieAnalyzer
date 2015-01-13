@@ -40,13 +40,15 @@
             this.numericUpDownDistance = new System.Windows.Forms.NumericUpDown();
             this.checkBoxYear = new System.Windows.Forms.CheckBox();
             this.checkBoxQuality = new System.Windows.Forms.CheckBox();
-            this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.itemDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkBoxPart = new System.Windows.Forms.CheckBox();
+            this.checkBoxEpisode = new System.Windows.Forms.CheckBox();
             this.buttonSave = new System.Windows.Forms.Button();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.buttonSearch = new System.Windows.Forms.Button();
             this.dataGridDuplicates = new System.Windows.Forms.DataGridView();
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Part = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Episode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.languageDubDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.yearDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.qualityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -54,13 +56,17 @@
             this.sizeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lastModifiedDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fullPathDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.itemRemoveFromList = new System.Windows.Forms.ToolStripMenuItem();
+            this.itemDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.bindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDistance)).BeginInit();
-            this.contextMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridDuplicates)).BeginInit();
+            this.contextMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -104,26 +110,28 @@
             // 
             // tableLayoutPanel2
             // 
-            this.tableLayoutPanel2.ColumnCount = 5;
+            this.tableLayoutPanel2.ColumnCount = 6;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 374F));
             this.tableLayoutPanel2.Controls.Add(this.radioButtonName, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.radioButtonDLDistance, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.checkBoxFilesize, 3, 1);
-            this.tableLayoutPanel2.Controls.Add(this.checkBoxLanguage, 3, 0);
+            this.tableLayoutPanel2.Controls.Add(this.checkBoxFilesize, 4, 1);
+            this.tableLayoutPanel2.Controls.Add(this.checkBoxLanguage, 4, 0);
             this.tableLayoutPanel2.Controls.Add(this.numericUpDownDistance, 1, 1);
-            this.tableLayoutPanel2.Controls.Add(this.checkBoxYear, 4, 0);
-            this.tableLayoutPanel2.Controls.Add(this.checkBoxQuality, 4, 1);
+            this.tableLayoutPanel2.Controls.Add(this.checkBoxYear, 5, 0);
+            this.tableLayoutPanel2.Controls.Add(this.checkBoxQuality, 5, 1);
+            this.tableLayoutPanel2.Controls.Add(this.checkBoxPart, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.checkBoxEpisode, 2, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 16);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(731, 61);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
@@ -138,6 +146,7 @@
             this.radioButtonName.TabStop = true;
             this.radioButtonName.Text = "Name";
             this.radioButtonName.UseVisualStyleBackColor = true;
+            this.radioButtonName.CheckedChanged += new System.EventHandler(this.radioButtonName_CheckedChanged);
             // 
             // radioButtonDLDistance
             // 
@@ -152,7 +161,7 @@
             // checkBoxFilesize
             // 
             this.checkBoxFilesize.AutoSize = true;
-            this.checkBoxFilesize.Location = new System.Drawing.Point(251, 26);
+            this.checkBoxFilesize.Location = new System.Drawing.Point(322, 26);
             this.checkBoxFilesize.Name = "checkBoxFilesize";
             this.checkBoxFilesize.Size = new System.Drawing.Size(60, 17);
             this.checkBoxFilesize.TabIndex = 5;
@@ -164,7 +173,7 @@
             this.checkBoxLanguage.AutoSize = true;
             this.checkBoxLanguage.Checked = true;
             this.checkBoxLanguage.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxLanguage.Location = new System.Drawing.Point(251, 3);
+            this.checkBoxLanguage.Location = new System.Drawing.Point(322, 3);
             this.checkBoxLanguage.Name = "checkBoxLanguage";
             this.checkBoxLanguage.Size = new System.Drawing.Size(103, 17);
             this.checkBoxLanguage.TabIndex = 4;
@@ -186,7 +195,7 @@
             // checkBoxYear
             // 
             this.checkBoxYear.AutoSize = true;
-            this.checkBoxYear.Location = new System.Drawing.Point(360, 3);
+            this.checkBoxYear.Location = new System.Drawing.Point(431, 3);
             this.checkBoxYear.Name = "checkBoxYear";
             this.checkBoxYear.Size = new System.Drawing.Size(91, 17);
             this.checkBoxYear.TabIndex = 6;
@@ -196,27 +205,36 @@
             // checkBoxQuality
             // 
             this.checkBoxQuality.AutoSize = true;
-            this.checkBoxQuality.Location = new System.Drawing.Point(360, 26);
+            this.checkBoxQuality.Location = new System.Drawing.Point(431, 26);
             this.checkBoxQuality.Name = "checkBoxQuality";
             this.checkBoxQuality.Size = new System.Drawing.Size(58, 17);
             this.checkBoxQuality.TabIndex = 7;
             this.checkBoxQuality.Text = "Quality";
             this.checkBoxQuality.UseVisualStyleBackColor = true;
             // 
-            // contextMenu
+            // checkBoxPart
             // 
-            this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.itemDelete});
-            this.contextMenu.Name = "contextMenu";
-            this.contextMenu.Size = new System.Drawing.Size(108, 26);
+            this.checkBoxPart.AutoSize = true;
+            this.checkBoxPart.Checked = true;
+            this.checkBoxPart.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxPart.Location = new System.Drawing.Point(181, 3);
+            this.checkBoxPart.Name = "checkBoxPart";
+            this.checkBoxPart.Size = new System.Drawing.Size(45, 17);
+            this.checkBoxPart.TabIndex = 8;
+            this.checkBoxPart.Text = "Part";
+            this.checkBoxPart.UseVisualStyleBackColor = true;
             // 
-            // itemDelete
+            // checkBoxEpisode
             // 
-            this.itemDelete.Image = global::OnderMovieAnalyzer.Properties.Resources.trash_a;
-            this.itemDelete.Name = "itemDelete";
-            this.itemDelete.Size = new System.Drawing.Size(107, 22);
-            this.itemDelete.Text = "Delete";
-            this.itemDelete.Click += new System.EventHandler(this.itemDelete_Click);
+            this.checkBoxEpisode.AutoSize = true;
+            this.checkBoxEpisode.Checked = true;
+            this.checkBoxEpisode.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxEpisode.Location = new System.Drawing.Point(232, 3);
+            this.checkBoxEpisode.Name = "checkBoxEpisode";
+            this.checkBoxEpisode.Size = new System.Drawing.Size(64, 17);
+            this.checkBoxEpisode.TabIndex = 9;
+            this.checkBoxEpisode.Text = "Episode";
+            this.checkBoxEpisode.UseVisualStyleBackColor = true;
             // 
             // buttonSave
             // 
@@ -231,14 +249,14 @@
             this.buttonSave.TabIndex = 12;
             this.buttonSave.Text = "Save Results";
             this.buttonSave.UseVisualStyleBackColor = true;
-            this.buttonSave.Visible = false;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // imageList
             // 
             this.imageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList.ImageStream")));
             this.imageList.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList.Images.SetKeyName(0, "search.png");
-            this.imageList.Images.SetKeyName(1, "thumbsup.png");
+            this.imageList.Images.SetKeyName(1, "archive.png");
             this.imageList.Images.SetKeyName(2, "trash-a.png");
             // 
             // buttonSearch
@@ -265,6 +283,8 @@
             this.dataGridDuplicates.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridDuplicates.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.nameDataGridViewTextBoxColumn,
+            this.Part,
+            this.Episode,
             this.languageDubDataGridViewTextBoxColumn,
             this.yearDataGridViewTextBoxColumn,
             this.qualityDataGridViewTextBoxColumn,
@@ -295,6 +315,24 @@
             this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
             this.nameDataGridViewTextBoxColumn.ReadOnly = true;
             this.nameDataGridViewTextBoxColumn.Width = 150;
+            // 
+            // Part
+            // 
+            this.Part.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.Part.DataPropertyName = "Part";
+            this.Part.HeaderText = "Part";
+            this.Part.Name = "Part";
+            this.Part.ReadOnly = true;
+            this.Part.Width = 51;
+            // 
+            // Episode
+            // 
+            this.Episode.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.Episode.DataPropertyName = "Episode";
+            this.Episode.HeaderText = "Episode";
+            this.Episode.Name = "Episode";
+            this.Episode.ReadOnly = true;
+            this.Episode.Width = 70;
             // 
             // languageDubDataGridViewTextBoxColumn
             // 
@@ -359,9 +397,38 @@
             this.fullPathDataGridViewTextBoxColumn.Name = "fullPathDataGridViewTextBoxColumn";
             this.fullPathDataGridViewTextBoxColumn.ReadOnly = true;
             // 
+            // contextMenu
+            // 
+            this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.itemRemoveFromList,
+            this.itemDelete});
+            this.contextMenu.Name = "contextMenu";
+            this.contextMenu.Size = new System.Drawing.Size(177, 48);
+            // 
+            // itemRemoveFromList
+            // 
+            this.itemRemoveFromList.Image = global::OnderMovieAnalyzer.Properties.Resources.close_circled;
+            this.itemRemoveFromList.Name = "itemRemoveFromList";
+            this.itemRemoveFromList.Size = new System.Drawing.Size(176, 22);
+            this.itemRemoveFromList.Text = "Remove from list";
+            this.itemRemoveFromList.Click += new System.EventHandler(this.itemRemoveFromList_Click);
+            // 
+            // itemDelete
+            // 
+            this.itemDelete.Image = global::OnderMovieAnalyzer.Properties.Resources.trash_a;
+            this.itemDelete.Name = "itemDelete";
+            this.itemDelete.Size = new System.Drawing.Size(176, 22);
+            this.itemDelete.Text = "Delete from system";
+            this.itemDelete.Click += new System.EventHandler(this.itemDelete_Click);
+            // 
             // bindingSource
             // 
             this.bindingSource.DataSource = typeof(OnderMovieAnalyzer.Objects.Movie);
+            // 
+            // saveFileDialog
+            // 
+            this.saveFileDialog.FileName = "DuplicateDump";
+            this.saveFileDialog.Filter = "Text files (*.txt)|*.txt";
             // 
             // FindDuplicatesForm
             // 
@@ -379,8 +446,8 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDistance)).EndInit();
-            this.contextMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridDuplicates)).EndInit();
+            this.contextMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource)).EndInit();
             this.ResumeLayout(false);
 
@@ -405,7 +472,11 @@
         private System.Windows.Forms.CheckBox checkBoxQuality;
         private System.Windows.Forms.DataGridView dataGridDuplicates;
         private System.Windows.Forms.BindingSource bindingSource;
+        private System.Windows.Forms.CheckBox checkBoxPart;
+        private System.Windows.Forms.CheckBox checkBoxEpisode;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Part;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Episode;
         private System.Windows.Forms.DataGridViewTextBoxColumn languageDubDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn yearDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn qualityDataGridViewTextBoxColumn;
@@ -413,5 +484,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn sizeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn lastModifiedDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn fullPathDataGridViewTextBoxColumn;
+        private System.Windows.Forms.ToolStripMenuItem itemRemoveFromList;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
     }
 }

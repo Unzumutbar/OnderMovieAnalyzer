@@ -39,6 +39,8 @@ namespace OnderMovieAnalyzer.Helper
                         Guid = _movie.Element("Guid").Value,
 
                         Name = _movie.Element("Name").Value,
+                        Series = _movie.Element("Series").Value,
+                        Episode = _movie.Element("Episode").Value,
                         LanguageOriginal = _movie.Element("LanguageOriginal").Value,
                         LanguageDub = _movie.Element("LanguageDub").Value,
                         Quality = _movie.Element("Quality").Value,
@@ -63,6 +65,8 @@ namespace OnderMovieAnalyzer.Helper
                         new XElement("Guid", movieToAdd.Guid),
 
                         new XElement("Name", movieToAdd.Name),
+                        new XElement("Series", movieToAdd.Series),
+                        new XElement("Episode", movieToAdd.Episode),
                         new XElement("LanguageOriginal", movieToAdd.LanguageOriginal),
                         new XElement("LanguageDub", movieToAdd.LanguageDub),
                         new XElement("Quality", movieToAdd.Quality),
