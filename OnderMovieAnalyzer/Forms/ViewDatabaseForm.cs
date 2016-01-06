@@ -1,6 +1,7 @@
 ﻿using OnderMovieAnalyzer.Helper;
 using OnderMovieAnalyzer.Objects;
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace OnderMovieAnalyzer.Forms
@@ -8,6 +9,7 @@ namespace OnderMovieAnalyzer.Forms
     public partial class ViewDatabaseForm : Form
     {
         private SortableBindingList<Movie> MovieBindingList = new SortableBindingList<Movie>();
+        private ImportMoviesForm ImportMoviesForm;
 
         public ViewDatabaseForm()
         {
@@ -47,16 +49,15 @@ namespace OnderMovieAnalyzer.Forms
 
         private void buttonAddMoviesFromTxt_Click(object sender, EventArgs e)
         {
-            int newMoviesCount = Program.Movies.GetMovieList().Count;
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                var newMovies = FileHelper.GetMovieListFromTexts(openFileDialog.FileNames);
-                foreach (var newMovie in newMovies)
-                    Program.Movies.AddMovieToList(newMovie);
-
-                newMoviesCount = Program.Movies.GetMovieList().Count - newMoviesCount;
-                MessageBox.Show(string.Format("{0} new Movies have been added to the Database", newMoviesCount), "Analysis Complete!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                RefreshList();
+                if (ImportMoviesForm == null || (ImportMoviesForm.IsDisposed))
+                {
+                    ImportMoviesForm = new ImportMoviesForm() { Owner = this, Location = new Point(this.Location.X + this.Width, this.Location.Y) };
+                }
+                ImportMoviesForm.FilesToRead = openFileDialog.FileNames;
+                ImportMoviesForm.Show(this);
+                ImportMoviesForm.StartImport();
             }
         }
     }

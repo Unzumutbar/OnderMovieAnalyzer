@@ -5,7 +5,6 @@ namespace OnderMovieAnalyzer.Objects
     public class Movie
     {
         public string Guid { get; set; }
-
         public string Name { get; set; }
         public string Part { get; set; }
         public string Series { get; set; }
@@ -16,7 +15,6 @@ namespace OnderMovieAnalyzer.Objects
         public string Source { get; set; }
         public string TvStation { get; set; }
         public string Year { get; set; }
-
         public string Path { get; set; }
         public long Size { get; set; }
         public DateTime LastModified { get; set; }

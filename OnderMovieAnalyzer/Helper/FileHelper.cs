@@ -293,7 +293,7 @@ namespace OnderMovieAnalyzer.Helper
             return movieList;
         }
 
-        private static Movie GetMovieFromLine(string line, string fileName)
+        public static Movie GetMovieFromLine(string line, string fileName)
         {
             var lines = line.Split(new string[] { "|" }, StringSplitOptions.None);
             if (lines.Length < 5)
