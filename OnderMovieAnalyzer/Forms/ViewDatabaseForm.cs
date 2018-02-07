@@ -9,7 +9,7 @@ namespace OnderMovieAnalyzer.Forms
     public partial class ViewDatabaseForm : Form
     {
         private SortableBindingList<Movie> MovieBindingList = new SortableBindingList<Movie>();
-        private ImportMoviesForm ImportMoviesForm;
+        private ImportMoviesDialog ImportMoviesForm;
 
         public ViewDatabaseForm()
         {
@@ -53,7 +53,7 @@ namespace OnderMovieAnalyzer.Forms
             {
                 if (ImportMoviesForm == null || (ImportMoviesForm.IsDisposed))
                 {
-                    ImportMoviesForm = new ImportMoviesForm() { Owner = this, Location = new Point(this.Location.X + this.Width, this.Location.Y) };
+                    ImportMoviesForm = new ImportMoviesDialog() { Owner = this, Location = new Point(this.Location.X + this.Width, this.Location.Y) };
                 }
                 ImportMoviesForm.FilesToRead = openFileDialog.FileNames;
                 ImportMoviesForm.Show(this);

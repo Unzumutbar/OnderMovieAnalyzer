@@ -19,6 +19,7 @@ namespace OnderMovieAnalyzer.Objects
         public long Size { get; set; }
         public DateTime LastModified { get; set; }
         public string Location { get; set; }
+        public int DuplicateId { get; set; }
 
         public string FullSource
         {
@@ -35,5 +36,28 @@ namespace OnderMovieAnalyzer.Objects
         {
             get { return string.Format(@"{0}\\{1}", Location, Path); }
         }
+
+        public QualityEnum QualityEnum
+        {
+            get
+            {
+                if (Quality.Contains("hd"))
+                    return QualityEnum.HighDefinition;
+                if (Quality.Contains("hi"))
+                    return QualityEnum.High;
+                if (Quality.Contains("lo"))
+                    return QualityEnum.LowQuality;
+
+                return QualityEnum.Undefined;
+            }
+        }
+    }
+
+    public enum QualityEnum
+    {
+        Undefined = 1,
+        LowQuality = 2,
+        High = 4,
+        HighDefinition = 8,
     }
 }

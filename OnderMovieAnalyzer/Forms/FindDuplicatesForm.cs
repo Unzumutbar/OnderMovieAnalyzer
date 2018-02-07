@@ -2,6 +2,7 @@
 using OnderMovieAnalyzer.Objects;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -10,6 +11,8 @@ namespace OnderMovieAnalyzer.Forms
     public partial class FindDuplicatesForm : Form
     {
         public SortableBindingList<Movie> Duplicates = new SortableBindingList<Movie>();
+        private FindDuplicatesDialog _findDuplicatesDialog;
+        private ExportDuplicatesDialog _exportDuplicatesDialog;
 
         public FindDuplicatesForm()
         {
@@ -18,7 +21,7 @@ namespace OnderMovieAnalyzer.Forms
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
-            RefreshList();
+            OpenFindDuplicatesDialog();
         }
 
         private void itemDelete_Click(object sender, EventArgs e)
@@ -52,64 +55,38 @@ namespace OnderMovieAnalyzer.Forms
                     couldNotDelete += string.Format("{0}{1}", Environment.NewLine, movie.FullPath);
             }
             MessageBox.Show(string.Format("Deletion completed{0}", couldNotDelete), "Deletion Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            RefreshList();
+            OpenFindDuplicatesDialog();
         }
 
-        public void RefreshList()
+        public void OpenFindDuplicatesDialog()
         {
-            var duplicateList = new List<Movie>();
             var movieList = Program.Movies.GetMovieList();
-            this.buttonSave.Enabled = false;
-
-            foreach (var movie in movieList)
+            var filter = GetFilter();
+            if (_findDuplicatesDialog == null || (_findDuplicatesDialog.IsDisposed))
             {
-                IEnumerable<Movie> foundDuplicates = movieList.AsEnumerable();
-                if (!duplicateList.Any(m => m.Guid == movie.Guid))
-                {
-                    if (this.radioButtonName.Checked)
-                        foundDuplicates = foundDuplicates.Where(m => m.Name == movie.Name && m.Guid != movie.Guid);
-
-                    if (this.radioButtonName.Checked && checkBoxPart.Checked)
-                        foundDuplicates = foundDuplicates.Where(m => m.Name == movie.Name && m.Guid != movie.Guid && movie.Part == m.Part);
-
-                    if (this.radioButtonName.Checked && checkBoxEpisode.Checked)
-                        foundDuplicates = foundDuplicates.Where(m => m.Name == movie.Name && m.Guid != movie.Guid && movie.Episode == m.Episode);
-
-                    if (this.checkBoxLanguage.Checked)
-                        foundDuplicates = foundDuplicates.Where(m => m.LanguageDub == movie.LanguageDub && m.Guid != movie.Guid);
-
-                    if (this.checkBoxYear.Checked)
-                        foundDuplicates = foundDuplicates.Where(m => m.Year == movie.Year && m.Guid != movie.Guid);
-
-                    if (this.checkBoxFilesize.Checked)
-                        foundDuplicates = foundDuplicates.Where(m => m.Size == movie.Size && m.Guid != movie.Guid);
-
-                    if (this.checkBoxQuality.Checked)
-                        foundDuplicates = foundDuplicates.Where(m => m.Quality == movie.Quality && m.Guid != movie.Guid);
-
-                    if (this.radioButtonDLDistance.Checked)
-                    {
-                        var distanceList = new List<Movie>();
-                        foreach (var film in foundDuplicates)
-                        {
-                            if (film.Guid != movie.Guid)
-                            {
-                                int distance = film.Name.DamerauLevenshteinDistanceTo(movie.Name);
-                                if (distance <= numericUpDownDistance.Value)
-                                    distanceList.Add(film);
-                            }
-                        }
-                        foundDuplicates = distanceList.AsEnumerable<Movie>();
-                    }
-
-                    if (foundDuplicates.Any())
-                    {
-                        duplicateList.Add(movie);
-                        duplicateList.AddRange(foundDuplicates.ToList());
-                    }
-                }
+                _findDuplicatesDialog = new FindDuplicatesDialog(movieList) { Owner = this, Location = new Point(this.Location.X + this.Width, this.Location.Y) };
             }
+            _findDuplicatesDialog.Show(this);
+            _findDuplicatesDialog.StartDuplicateSearch(filter);
+        }
 
+        private DuplicateFilter GetFilter()
+        {
+            var filter = new DuplicateFilter();
+            filter.Name = radioButtonName.Checked;
+            filter.Quality = checkBoxQuality.Checked;
+            filter.Part = checkBoxPart.Checked;
+            filter.Language = checkBoxLanguage.Checked;
+            filter.Year = checkBoxYear.Checked;
+            filter.Episode = checkBoxEpisode.Checked;
+            filter.Filesize = checkBoxFilesize.Checked;           
+            filter.DLDistance = radioButtonDLDistance.Checked;
+            filter.NumericUpDownDistance = (int)numericUpDownDistance.Value;
+            return filter;
+        }
+
+        public void RefreshList(List<Movie> duplicateList)
+        {
             Duplicates = new SortableBindingList<Movie>(duplicateList);
             var source = new BindingSource(Duplicates, null);
             dataGridDuplicates.DataSource = source;
@@ -140,12 +117,23 @@ namespace OnderMovieAnalyzer.Forms
                 Duplicates.Remove(movie);
         }
 
-        private void buttonSave_Click(object sender, EventArgs e)
+        private void buttonExport_Click(object sender, EventArgs e)
         {
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            //if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            //{
+            //    FileHelper.SaveDuplicatesToFile(Duplicates.ToList(), saveFileDialog.FileName);
+            //}
+            OpenExportDuplicatesDialog();
+        }
+
+        public void OpenExportDuplicatesDialog()
+        {
+            if (_exportDuplicatesDialog == null || (_exportDuplicatesDialog.IsDisposed))
             {
-                FileHelper.SaveDuplicatesToFile(Duplicates.ToList(), saveFileDialog.FileName);
+                var movieList = Program.Movies.GetMovieList();
+                _exportDuplicatesDialog = new ExportDuplicatesDialog(movieList, Duplicates.ToList()) { Owner = this, Location = new Point(this.Location.X + this.Width, this.Location.Y) };
             }
+            _exportDuplicatesDialog.Show(this);
         }
     }
 }

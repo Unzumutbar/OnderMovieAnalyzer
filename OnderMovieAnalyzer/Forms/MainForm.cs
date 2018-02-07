@@ -33,7 +33,7 @@ namespace OnderMovieAnalyzer.Forms
                 newMoviesCount = Program.Movies.GetMovieList().Count - newMoviesCount;
                 MessageBox.Show(string.Format("{0} new Movies have been added to the Database", newMoviesCount), "Analysis Complete!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (FindDuplicatesForm != null && !FindDuplicatesForm.IsDisposed)
-                    FindDuplicatesForm.RefreshList();
+                    FindDuplicatesForm.OpenFindDuplicatesDialog();
 
                 if (ViewDatabaseForm != null && !ViewDatabaseForm.IsDisposed)
                     ViewDatabaseForm.RefreshList();

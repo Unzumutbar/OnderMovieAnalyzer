@@ -360,5 +360,17 @@ namespace OnderMovieAnalyzer.Helper
                 outfile.Write(outputString);
             }
         }
+
+        public static void SaveToFile(string[] lines, string file)
+        {
+            string outputString = string.Empty;
+            foreach (var line in lines)
+                outputString += line;
+
+            using (StreamWriter outfile = new StreamWriter(file))
+            {
+                outfile.Write(outputString);
+            }
+        }
     }
 }
